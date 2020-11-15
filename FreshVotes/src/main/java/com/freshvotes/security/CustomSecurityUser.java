@@ -27,7 +27,7 @@ public class CustomSecurityUser extends User implements UserDetails{
 
 	@Override
 	public Set<Authority> getAuthorities() {
-		return this.getAuthorities();
+		return super.getAuthorities();
 	}
 
 	@Override
