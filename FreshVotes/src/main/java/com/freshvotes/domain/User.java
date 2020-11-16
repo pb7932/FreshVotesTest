@@ -23,7 +23,7 @@ public class User {
 	private String username;
 	private String password;
 	private String name;
-	Set<Authority> authorities = new HashSet<>();
+	private Set<Authority> authorities = new HashSet<>();
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
