@@ -23,7 +23,7 @@ public class User {
 	private String username;
 	private String password;
 	private String name;
-	Set<Authority> authorities = new HashSet<>();
+	private Set<Authority> authorities = new HashSet<>();
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,6 +59,13 @@ public class User {
 	public void setAuthorities(Set<Authority> authorities) {
 		this.authorities = authorities;
 	}
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", name=" + name
+				+ ", authorities=" + authorities + "]";
+	}
+	
+	
 	
 	
 }

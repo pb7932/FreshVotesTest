@@ -19,15 +19,15 @@ public class CustomSecurityUser extends User implements UserDetails{
 	}
 	
 	public CustomSecurityUser(User user) {
-		this.setAuthorities(getAuthorities());
-		this.setName(getName());
-		this.setUsername(getUsername());
-		this.setPassword(getPassword());
+		this.setAuthorities(user.getAuthorities());
+		this.setName(user.getName());
+		this.setUsername(user.getUsername());
+		this.setPassword(user.getPassword());
 	}
 
 	@Override
 	public Set<Authority> getAuthorities() {
-		return this.getAuthorities();
+		return super.getAuthorities();
 	}
 
 	@Override

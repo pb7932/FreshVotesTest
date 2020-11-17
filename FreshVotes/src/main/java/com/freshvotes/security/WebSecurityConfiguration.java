@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+
 @Configuration
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 
@@ -20,7 +21,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 	public PasswordEncoder getPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -33,6 +33,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 //			.withUser("pebe@pebe.com")
 //			.password(getPasswordEncoder().encode("asdf"))
 //			.roles("USER");
+//		
 		
 	}
 	
@@ -41,6 +42,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 		http
 			.authorizeRequests()
 				.antMatchers("/").permitAll()
+				.antMatchers("/register").permitAll()
 				.anyRequest().hasRole("USER").and()
 				.formLogin()
 					.loginPage("/login")
