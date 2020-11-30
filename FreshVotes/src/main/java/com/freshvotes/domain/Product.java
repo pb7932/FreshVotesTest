@@ -11,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import com.freshvotes.domain.*;
 
 @Entity
 public class Product {
@@ -21,6 +20,7 @@ public class Product {
 	private User user;
 	private Set<Feature> features = new HashSet<>();
 	private boolean published;
+	
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
@@ -51,19 +51,12 @@ public class Product {
 	public void setFeatures(Set<Feature> features) {
 		this.features = features;
 	}
+	
 	public boolean isPublished() {
 		return published;
 	}
 	public void setPublished(boolean published) {
 		this.published = published;
 	}
-	@Override
-	public String toString() {
-		return "Product [id=" + id + ", name=" + name + ", user=" + user + ", features=" + features + ", published="
-				+ published + "]";
-	}
-	
-	
-	
-	
+
 }
