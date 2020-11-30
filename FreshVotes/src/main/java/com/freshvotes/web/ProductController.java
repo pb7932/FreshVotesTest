@@ -61,4 +61,11 @@ public class ProductController {
 		return "redirect:/products/"+product.getId();
 	}
 	
+	@PostMapping("/products/{productId}") 
+	public String saveProduct(@PathVariable Long productId, Product product) {
+		product = productRepo.save(product);
+		
+		return "redirect:/products/"+product.getId();
+	}
+	
 }
