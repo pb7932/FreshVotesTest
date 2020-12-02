@@ -1,6 +1,7 @@
 package com.freshvotes.web;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +19,7 @@ import com.freshvotes.domain.Product;
 import com.freshvotes.domain.User;
 import com.freshvotes.repositories.ProductRepository;
 import com.freshvotes.repositories.UserRepository;
+import com.freshvotes.service.UserService;
 
 @Controller
 public class ProductController {
@@ -26,12 +28,7 @@ public class ProductController {
 	private ProductRepository productRepo;
 	
 	@Autowired
-	private UserRepository userRepo;
-	
-	@GetMapping("/products") 
-	public String getProducts(ModelMap modle) {
-		return "product";
-	}
+	private UserService userService;
 	
 	@GetMapping("/products/{productId}")
 	public String getProduct(@PathVariable Long productId, ModelMap model, HttpServletResponse response) throws IOException {
@@ -53,7 +50,8 @@ public class ProductController {
 	public String createProduct(Authentication authentication) {
 		Product product = new Product();
 		
-		User user = userRepo.findByUsername(authentication.getName());
+		User user = userService.findByUsername(authentication.getName());
+		
 		product.setPublished(false);
 		product.setUser(user);
 		
