@@ -19,20 +19,21 @@ import com.freshvotes.domain.Product;
 import com.freshvotes.domain.User;
 import com.freshvotes.repositories.ProductRepository;
 import com.freshvotes.repositories.UserRepository;
+import com.freshvotes.service.ProductService;
 import com.freshvotes.service.UserService;
 
 @Controller
 public class ProductController {
 
 	@Autowired
-	private ProductRepository productRepo;
+	private ProductService productService;
 	
 	@Autowired
 	private UserService userService;
 	
 	@GetMapping("/products/{productId}")
 	public String getProduct(@PathVariable Long productId, ModelMap model, HttpServletResponse response) throws IOException {
-		Optional<Product> productOpt = productRepo.findById(productId);
+		Optional<Product> productOpt = productService.findById(productId);
 		
 		if(productOpt.isPresent()) {
 			Product product = productOpt.get();
@@ -55,13 +56,13 @@ public class ProductController {
 		product.setPublished(false);
 		product.setUser(user);
 		
-		product = productRepo.save(product);
+		product = productService.save(product);
 		return "redirect:/products/"+product.getId();
 	}
 	
 	@PostMapping("/products/{productId}") 
 	public String saveProduct(@PathVariable Long productId, Product product) {
-		product = productRepo.save(product);
+		product = productService.save(product);
 		
 		return "redirect:/products/"+product.getId();
 	}
