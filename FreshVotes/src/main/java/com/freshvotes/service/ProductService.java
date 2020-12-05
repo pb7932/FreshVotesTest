@@ -27,4 +27,8 @@ public class ProductService {
 	public Product save(Product product) {
 		return productRepo.save(product);
 	}
+	
+	public Optional<Product> findByName(String productName) {
+		return productRepo.findByName(productName);
+	}
 }

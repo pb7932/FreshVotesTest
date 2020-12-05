@@ -47,6 +47,18 @@ public class ProductController {
 		return "product";
 	}
 	
+	@GetMapping("/p/{productName}") 
+		public String productUserView(@PathVariable String productName, ModelMap model) {
+		if(productName != null) {
+			Optional<Product> productOpt = productService.findByName(productName);
+			
+			if(productOpt.isPresent()) {
+				model.put("product", productOpt.get());
+			}
+		}
+		return "productUserView";
+	}
+	
 	@PostMapping("/products") 
 	public String createProduct(Authentication authentication) {
 		Product product = new Product();

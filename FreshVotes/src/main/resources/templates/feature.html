@@ -11,10 +11,29 @@
 		
 		<div class="card">
 			<div class="card-header">
-				<h3>Feature</h3>
+				<h3>New Feature</h3>
 			</div>
 			
+			<form action="" method="post">
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+				<input type="hidden" th:field="${feature.id}"/>
+				<input type="hidden" th:field="${feature.product}"/>
+				<input type="hidden" th:field="${feature.status}"/>
+				
+				<div>
+					<label>Title</label>
+					<input type="text" th:field="${feature.title}"/>
+				</div>
+				
+				<div>
+					<label>Description</label>
+					<input type="text" th:field="${feature.description}"/>
+				</div>
 			
+				<div>
+					<button type="submit" class="btn btn-primary btn-lg">Save Feature</button>
+				</div>
+			</form>
 		</div>
 	</div>
 	
