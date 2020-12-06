@@ -15,6 +15,11 @@
 			</div>
 			
 			<div class="card-body">
+			
+				<div th:each="feature: ${product.features}">
+					<a th:href="@{/products/{productId}/features/{featureId}(productId=${product.id},featureId=${feature.id})}" th:text="${feature.title}"></a>
+				
+				</div>
 				
 				<form th:action="@{/products/{productId}/features(productId=${product.id})}" method="post">
 					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
