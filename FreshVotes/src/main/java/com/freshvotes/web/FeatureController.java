@@ -30,7 +30,8 @@ public class FeatureController {
 	
 	@GetMapping("{featureId}") 
 	public String feature(Authentication authentication, @PathVariable Long featureId, @PathVariable Long productId, ModelMap model) {
-		
+		User user = userService.findByUsername(authentication.getName());
+		model.put("user", user);
 		Optional<Feature> featureOpt = featureService.findById(featureId);
 		
 		if(featureOpt.isPresent()) {
