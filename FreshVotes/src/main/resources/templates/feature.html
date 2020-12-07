@@ -33,16 +33,13 @@
 					
 					<div class="form-group row">
 						<label for="title" class="col-12 col-sm-3 col-form-label">Title:</label>
-						<div class="col-12 col-sm-9">
-							<input type="text" th:field="${feature.title}" th:attrappend="disabled= ${feature.user.id==user.id} ? null : 'disabled'" class="form-control"/>
-						</div>	
+						<input type="text" th:field="${feature.title}" th:attrappend="disabled= ${feature.user.id==user.id} ? null : 'disabled'" class="form-control"/>	
 					</div>
 					
 					<div class="form-group row">
 						<label for="description" class="col-12 col-sm-3 col-form-label">Description:</label>
-						<div class="col-12 col-sm-9">
-							<input type="text" th:field="${feature.description}" th:attrappend="disabled= ${feature.user.id==user.id} ? null : 'disabled'" class="form-control"/>
-						</div>	
+						<textarea th:field="${feature.description}" th:attrappend="disabled= ${feature.user.id==user.id} ? null : 'disabled'" class="form-control">
+						</textarea>
 					</div>
 
 					<button type="submit" class="btn btn-primary btn-lg" th:if="${feature.user.id == user.id}">Save Feature</button>
