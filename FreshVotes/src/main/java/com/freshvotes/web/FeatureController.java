@@ -1,6 +1,7 @@
 package com.freshvotes.web;
 
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.freshvotes.domain.Comment;
 import com.freshvotes.domain.Feature;
 import com.freshvotes.domain.User;
 import com.freshvotes.service.FeatureService;
@@ -35,12 +37,17 @@ public class FeatureController {
 		if(featureOpt.isPresent()) {
 			Feature feature = featureOpt.get();
 			model.put("feature", feature);
-			model.put("comments", feature.getComments());
+			model.put("comments", getCommentsWithoutDuplicates(feature));
 		}
 		model.put("user", user);
 		
 		//TODO handle a situation where feature is not found
-		return "featureView";
+		return "feature";
+	}
+
+	private Set<Comment> getCommentsWithoutDuplicates(Feature feature) {
+		Set<Comment> comments = feature.getComments();
+		return comments;
 	}
 		
 	@PostMapping("{featureId}") 
