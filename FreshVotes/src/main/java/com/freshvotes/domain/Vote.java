@@ -1,6 +1,6 @@
 package com.freshvotes.domain;
 
-import javax.persistence.Embeddable;
+
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 

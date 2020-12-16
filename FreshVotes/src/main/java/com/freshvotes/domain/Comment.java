@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,7 +15,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
+//@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property="@id")
 public class Comment {
 
 	private Long id;
@@ -42,6 +49,7 @@ public class Comment {
 	}
 	
 	@ManyToOne
+	@JsonIgnore
 	public User getUser() {
 		return user;
 	}
@@ -50,6 +58,7 @@ public class Comment {
 	}
 	
 	@ManyToOne
+	@JsonIgnore
 	public Feature getFeature() {
 		return feature;
 	}
@@ -57,7 +66,7 @@ public class Comment {
 		this.feature = feature;
 	}
 	
-	@OneToMany(mappedBy="comment")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="comment")
 	public List<Comment> getComments() {
 		return comments;
 	}
@@ -65,8 +74,9 @@ public class Comment {
 		this.comments = comments;
 	}
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="comment_id", nullable=true)
+	@JsonIgnore
 	public Comment getComment() {
 		return comment;
 	}
