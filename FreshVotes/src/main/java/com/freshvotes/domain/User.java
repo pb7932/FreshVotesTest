@@ -12,10 +12,13 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.freshvotes.security.Authority;
 
 @Entity
 @Table(name="users")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property="@id")
 public class User {
 
 	
@@ -26,7 +29,6 @@ public class User {
 	private Set<Authority> authorities = new HashSet<>();
 	private Set<Product> products = new HashSet<>();
 	private Set<Feature> features = new HashSet<>();
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
@@ -77,11 +79,12 @@ public class User {
 	public void setFeatures(Set<Feature> features) {
 		this.features = features;
 	}
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", name=" + name
-				+ ", authorities=" + authorities + "]";
-	}
+	
+//	@Override
+//	public String toString() {
+//		return "User [id=" + id + ", username=" + username + ", password=" + password + ", name=" + name
+//				+ ", authorities=" + authorities + "]";
+//	}
 	
 	
 	

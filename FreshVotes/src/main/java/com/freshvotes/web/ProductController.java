@@ -1,7 +1,6 @@
 package com.freshvotes.web;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
@@ -17,8 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.freshvotes.domain.Product;
 import com.freshvotes.domain.User;
-import com.freshvotes.repositories.ProductRepository;
-import com.freshvotes.repositories.UserRepository;
 import com.freshvotes.service.ProductService;
 import com.freshvotes.service.UserService;
 
