@@ -18,7 +18,7 @@ import com.freshvotes.security.Authority;
 
 @Entity
 @Table(name="users")
-//@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property="@id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property="@id")
 public class User {
 
 	

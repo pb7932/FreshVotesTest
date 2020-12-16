@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,8 +19,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-//@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property="@id")
-public class Comment {
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property="@id")
+public class Comment implements Comparable<Comment>{
 
 	private Long id;
 	private String text;
@@ -93,6 +92,14 @@ public class Comment {
 	public String toString() {
 		return "Comment [id=" + id + ", text=" + text + ", user=" + user + ", feature=" + feature + ", comments="
 				+ comments + ", comment=" + comment + ", createdDate=" + createdDate + "]";
+	}
+	@Override
+	public int compareTo(Comment that) {
+		int comparedValue = this.createdDate.compareTo(that.createdDate);
+		if(comparedValue == 0) {
+			comparedValue = this.id.compareTo(that.getId());
+		}
+		return comparedValue;
 	}
 	
 	
