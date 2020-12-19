@@ -1,7 +1,10 @@
 package com.freshvotes.web;
 
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -37,7 +40,8 @@ public class FeatureController {
 		if(featureOpt.isPresent()) {
 			Feature feature = featureOpt.get();
 			model.put("feature", feature);
-			model.put("comments", getCommentsWithoutDuplicates(feature));
+			SortedSet<Comment> comments = getCommentsWithoutDuplicates(new HashSet<>(), feature.getComments());
+			model.put("thread", comments);
 		}
 		model.put("user", user);
 		
@@ -45,9 +49,40 @@ public class FeatureController {
 		return "feature";
 	}
 
-	private Set<Comment> getCommentsWithoutDuplicates(Feature feature) {
-		Set<Comment> comments = feature.getComments();
-		return comments;
+//	private SortedSet<Comment> getCommentsWithoutDuplicates(Set<Long> visitedComments, SortedSet<Comment> comments) {
+//		Iterator<Comment> it = comments.iterator();
+//
+//		while(it.hasNext()) {
+//			Comment comment = it.next();
+//			if(!visitedComments.add(comment.getId())) {
+//				it.remove();
+//			}
+//			if(comment.getComments() != null) {
+//				comments = getCommentsWithoutDuplicates(visitedComments, comment.getComments());
+//			}
+//		}
+//		return comments;
+//	}
+	
+	public SortedSet<Comment> getCommentsWithoutDuplicates(Set<Long> visitedComments, SortedSet<Comment> comments) {
+		SortedSet<Comment> uniqueComments = new TreeSet<>();
+		
+		if(comments != null) {
+			for(Comment comment : comments) {
+				if(visitedComments.add(comment.getId())) {
+					uniqueComments.add(comment);
+					SortedSet<Comment> nextComments = getCommentsWithoutDuplicates(visitedComments, comment.getComments());
+					for(Comment nextcomment : nextComments) {
+						if(!visitedComments.contains(comment.getId())) {
+							uniqueComments.add(comment);
+						}
+					}
+					
+				}
+			}
+		}
+		
+		return uniqueComments;
 	}
 		
 	@PostMapping("{featureId}") 
