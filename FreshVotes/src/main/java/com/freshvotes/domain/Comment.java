@@ -1,8 +1,8 @@
 package com.freshvotes.domain;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -26,7 +27,7 @@ public class Comment implements Comparable<Comment>{
 	private String text;
 	private User user;
 	private Feature feature;
-	private List<Comment> comments = new ArrayList<>();
+	private SortedSet<Comment> comments = new TreeSet<>();
 	private Comment comment;
 	private Date createdDate;
 	
@@ -66,10 +67,11 @@ public class Comment implements Comparable<Comment>{
 	}
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy="comment")
-	public List<Comment> getComments() {
+	@OrderBy("createdDate, id")
+	public SortedSet<Comment> getComments() {
 		return comments;
 	}
-	public void setComments(List<Comment> comments) {
+	public void setComments(SortedSet<Comment> comments) {
 		this.comments = comments;
 	}
 	
@@ -88,10 +90,10 @@ public class Comment implements Comparable<Comment>{
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
+	
 	@Override
 	public String toString() {
-		return "Comment [id=" + id + ", text=" + text + ", user=" + user + ", feature=" + feature + ", comments="
-				+ comments + ", comment=" + comment + ", createdDate=" + createdDate + "]";
+		return "Comment [id=" + id + ", text=" + text + "]";
 	}
 	@Override
 	public int compareTo(Comment that) {

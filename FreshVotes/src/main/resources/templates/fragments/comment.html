@@ -1,0 +1,16 @@
+<html xmlns:th="http://thymeleaf.org">
+<head>
+</head>
+
+<body>
+	<div th:fragment="commentThread" th:remov="tag">
+		<ul>
+			<li th:each="comment : ${thread}">
+				<span th:text="${comment.text}"></span>
+				<div th:with="thread = ${comment.comments}" 
+						th:include="fragments/comment.html :: commentThread" th:remove="tag"></div>
+			</li>
+		</ul>
+	</div>
+</body>
+</html>
