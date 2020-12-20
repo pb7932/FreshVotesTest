@@ -44,7 +44,7 @@ public class FeatureController {
 			model.put("thread", comments);
 		}
 		model.put("user", user);
-		
+		model.put("comment", new Comment());
 		//TODO handle a situation where feature is not found
 		return "feature";
 	}
